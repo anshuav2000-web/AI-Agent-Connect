@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,10 +12,18 @@ import AccessRequests from "@/pages/admin/requests";
 import WebhookSettingsPage from "@/pages/admin/webhook-settings";
 import Analytics from "@/pages/admin/analytics";
 import SettingsPage from "@/pages/admin/settings";
-import PlaceholderPage from "@/pages/admin/placeholder";
+import ContentEditor from "@/pages/admin/content";
+import BrandingPage from "@/pages/admin/branding";
+import WhatsAppPage from "@/pages/admin/whatsapp";
+import ConsoleModelsPage from "@/pages/admin/models";
+import KnowledgePage from "@/pages/admin/knowledge";
+import NotificationsPage from "@/pages/admin/notifications";
+import SplashScreen from "@/components/SplashScreen";
 import { adminApi } from "@/lib/admin-api";
 
 const queryClient = new QueryClient();
+
+const SPLASH_KEY = "hitech_splash_shown";
 
 function AdminApp() {
   const [authed, setAuthed] = useState<boolean | null>(null);
@@ -44,21 +52,12 @@ function AdminApp() {
         <Route path="/admin/webhook" component={WebhookSettingsPage} />
         <Route path="/admin/analytics" component={Analytics} />
         <Route path="/admin/settings" component={SettingsPage} />
-        <Route path="/admin/whatsapp">
-          <PlaceholderPage title="WhatsApp AI Management" />
-        </Route>
-        <Route path="/admin/users">
-          <PlaceholderPage title="User Management" />
-        </Route>
-        <Route path="/admin/models">
-          <PlaceholderPage title="Console Models" />
-        </Route>
-        <Route path="/admin/knowledge">
-          <PlaceholderPage title="AI Knowledge Base" />
-        </Route>
-        <Route path="/admin/notifications">
-          <PlaceholderPage title="Notifications" />
-        </Route>
+        <Route path="/admin/content" component={ContentEditor} />
+        <Route path="/admin/branding" component={BrandingPage} />
+        <Route path="/admin/whatsapp" component={WhatsAppPage} />
+        <Route path="/admin/models" component={ConsoleModelsPage} />
+        <Route path="/admin/knowledge" component={KnowledgePage} />
+        <Route path="/admin/notifications" component={NotificationsPage} />
         <Route component={NotFound} />
       </Switch>
     </AdminLayout>
@@ -81,10 +80,20 @@ function Router() {
 }
 
 function App() {
+  const [splashDone, setSplashDone] = useState(() => {
+    return sessionStorage.getItem(SPLASH_KEY) === "1";
+  });
+
+  const handleSplashDone = useCallback(() => {
+    sessionStorage.setItem(SPLASH_KEY, "1");
+    setSplashDone(true);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+          {!splashDone && <SplashScreen onDone={handleSplashDone} />}
           <Router />
         </WouterRouter>
         <Toaster />

@@ -4,32 +4,60 @@ import { adminApi } from "@/lib/admin-api";
 import {
   LayoutDashboard, Users, Webhook, BarChart3, Settings, LogOut, Cpu,
   Bell, Search, Menu, X, ChevronRight, Activity, MessageSquare, Database,
-  Shield, BookOpen,
+  Shield, BookOpen, FileText, Palette, Cpu as ConsoleIcon,
 } from "lucide-react";
 
-const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
-  { icon: Users, label: "Access Requests", path: "/admin/requests" },
-  { icon: MessageSquare, label: "WhatsApp AI", path: "/admin/whatsapp" },
-  { icon: Webhook, label: "Webhook Settings", path: "/admin/webhook" },
-  { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
-  { icon: Shield, label: "User Management", path: "/admin/users" },
-  { icon: Database, label: "Console Models", path: "/admin/models" },
-  { icon: BookOpen, label: "AI Knowledge Base", path: "/admin/knowledge" },
-  { icon: Bell, label: "Notifications", path: "/admin/notifications" },
-  { icon: Settings, label: "Settings", path: "/admin/settings" },
+const navGroups = [
+  {
+    label: "Overview",
+    items: [
+      { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
+      { icon: Bell, label: "Notifications", path: "/admin/notifications" },
+      { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
+    ],
+  },
+  {
+    label: "Leads",
+    items: [
+      { icon: Users, label: "Access Requests", path: "/admin/requests" },
+    ],
+  },
+  {
+    label: "Website",
+    items: [
+      { icon: FileText, label: "Content Editor", path: "/admin/content" },
+      { icon: Palette, label: "Logo & Branding", path: "/admin/branding" },
+      { icon: ConsoleIcon, label: "Console Models", path: "/admin/models" },
+      { icon: BookOpen, label: "Knowledge Base", path: "/admin/knowledge" },
+    ],
+  },
+  {
+    label: "Integrations",
+    items: [
+      { icon: MessageSquare, label: "WhatsApp Config", path: "/admin/whatsapp" },
+      { icon: Webhook, label: "Webhook / n8n", path: "/admin/webhook" },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      { icon: Settings, label: "Settings", path: "/admin/settings" },
+    ],
+  },
 ];
 
 export default function AdminLayout({ children, onLogout }: { children: React.ReactNode; onLogout: () => void }) {
   const [location] = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [notifCount] = useState(3);
 
   const handleLogout = async () => {
     await adminApi.logout();
     localStorage.removeItem("admin_token");
     onLogout();
   };
+
+  const isActive = (path: string) =>
+    path === "/admin" ? location === "/admin" : location.startsWith(path);
 
   return (
     <div className="min-h-screen bg-[#030610] text-white flex">
@@ -46,7 +74,7 @@ export default function AdminLayout({ children, onLogout }: { children: React.Re
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-[#070d1a]/90 backdrop-blur-xl border-r border-white/5 z-30 flex flex-col transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-[#070d1a]/95 backdrop-blur-xl border-r border-white/5 z-30 flex flex-col transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
@@ -75,27 +103,36 @@ export default function AdminLayout({ children, onLogout }: { children: React.Re
           <span className="text-xs text-emerald-400 font-medium">System Online</span>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 p-3 space-y-0.5 mt-3 overflow-y-auto">
-          {navItems.map((item) => {
-            const active = location === item.path || (item.path !== "/admin" && location.startsWith(item.path));
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${
-                  active
-                    ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                    : "text-white/50 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <item.icon size={16} />
-                <span className="flex-1">{item.label}</span>
-                {active && <ChevronRight size={14} className="opacity-60" />}
-              </Link>
-            );
-          })}
+        {/* Nav groups */}
+        <nav className="flex-1 p-3 space-y-4 mt-3 overflow-y-auto">
+          {navGroups.map((group) => (
+            <div key={group.label}>
+              <div className="px-3 mb-1">
+                <span className="text-[10px] font-semibold text-white/20 uppercase tracking-widest">{group.label}</span>
+              </div>
+              <div className="space-y-0.5">
+                {group.items.map((item) => {
+                  const active = isActive(item.path);
+                  return (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${
+                        active
+                          ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
+                          : "text-white/50 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      <item.icon size={15} />
+                      <span className="flex-1">{item.label}</span>
+                      {active && <ChevronRight size={13} className="opacity-60" />}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </nav>
 
         {/* Logout */}
@@ -132,23 +169,17 @@ export default function AdminLayout({ children, onLogout }: { children: React.Re
           </div>
 
           <div className="ml-auto flex items-center gap-3">
-            {/* Status */}
             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
               <Activity size={13} className="text-emerald-400" />
               <span className="text-xs text-emerald-400 font-medium">AI Active</span>
             </div>
 
-            {/* Notifs */}
-            <button className="relative p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-colors">
-              <Bell size={18} />
-              {notifCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full text-[10px] flex items-center justify-center font-bold">
-                  {notifCount}
-                </span>
-              )}
-            </button>
+            <Link href="/admin/notifications">
+              <button className="relative p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-colors">
+                <Bell size={18} />
+              </button>
+            </Link>
 
-            {/* Admin badge */}
             <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
               <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center text-xs font-bold">
                 A

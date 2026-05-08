@@ -11,8 +11,8 @@ function headers() {
   };
 }
 
-async function req<T>(method: string, path: string, body?: unknown): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
+async function req<T>(method: string, path: string, body?: unknown, base = BASE): Promise<T> {
+  const res = await fetch(`${base}${path}`, {
     method,
     headers: headers(),
     body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -57,6 +57,11 @@ export const adminApi = {
     test: (url: string) =>
       req<{ success: boolean; status: number; message: string }>("POST", "/webhook/test", { url }),
   },
+  siteSettings: {
+    get: () => req<Record<string, string>>("GET", "/site-settings"),
+    save: (data: Record<string, string>) =>
+      req<Record<string, string>>("PUT", "/site-settings", data),
+  },
 };
 
 export interface Lead {
@@ -66,6 +71,7 @@ export interface Lead {
   email: string;
   phone: string;
   country: string;
+  consoleModel?: string;
   requirement: string;
   referralSource?: string;
   status: string;

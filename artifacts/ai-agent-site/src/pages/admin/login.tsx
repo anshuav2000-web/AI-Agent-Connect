@@ -90,7 +90,7 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
         </form>
 
         <p className="text-center text-xs text-white/20 mt-4">
-          Default password: <span className="text-white/40 font-mono">admin123</span> — set <span className="font-mono">ADMIN_PASSWORD</span> env var to change
+          HiTech AI · Admin Portal
         </p>
       </div>
     </div>
