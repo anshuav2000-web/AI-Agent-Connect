@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "E2KxoEFRLSvn-h4Crwkh3"
+uri = "file://exports/hitech-ai-hostinger.zip"
+type = "unspecified"
+title = "HiTech AI — Hostinger Self-Host Package (ZIP)"

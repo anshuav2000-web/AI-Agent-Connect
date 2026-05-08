@@ -1,0 +1,19 @@
+{
+  "name": "hitech-ai",
+  "version": "1.0.0",
+  "description": "HiTech AI — DiGiCo WhatsApp Support Platform",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build && cd ../server && npm run build",
+    "start": "cd server && npm start",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "db:push": "cd server && npm run db:push",
+    "db:migrate": "cd server && npm run db:migrate",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop hitech-ai",
+    "pm2:restart": "pm2 restart hitech-ai",
+    "pm2:logs": "pm2 logs hitech-ai"
+  }
+}

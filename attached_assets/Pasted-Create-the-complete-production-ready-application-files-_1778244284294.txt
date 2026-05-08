@@ -1,0 +1,80 @@
+Create the complete production-ready application files for self-hosting on my own Hostinger Node.js server instead of deploying on Replit.
+
+Requirements:
+
+* Generate the full production build files
+* Include complete backend + frontend source code
+* Include full database structure and DB export file
+* Include .env.example file with all required environment variables
+* Include installation/setup instructions for Hostinger Node.js hosting
+* Include production configuration files
+* Include package.json and all dependencies
+* Include API routes and webhook integrations
+* Include admin dashboard system
+* Include authentication and role management
+* Include form handling and database storage
+* Include editable settings from admin panel
+* Include N8N webhook configuration system editable from admin dashboard
+* Include proper folder structure
+* Include upload-ready ZIP structure for Hostinger
+* Include database migration/setup scripts
+* Include build and start commands for production
+* Include responsive UI for mobile and desktop
+* Include error handling and security best practices
+* Include deployment guide for custom domain setup on Hostinger
+
+Database Requirements:
+
+* Full SQL database export file
+* Tables for:
+    * users
+    * admins
+    * access_requests
+    * settings
+    * webhook_logs
+    * notifications
+    * activity_logs
+* Sample demo data included
+
+Admin Dashboard Features:
+
+* View total access requests
+* Approve/reject/delete/edit forms
+* Change N8N webhook URL anytime
+* Manage users/admins
+* View analytics and logs
+* Export data
+* Full CRUD operations
+
+Output Requirements:
+
+* Give all files in downloadable format
+* Ready for direct upload to Hostinger Node.js hosting
+* Production-ready optimized build
+* No Replit deployment configuration
+* Self-hosted architecture only
+* Make sure application runs after:
+    npm install
+    npm run build
+    npm start
+
+Tech Stack:
+
+* Node.js
+* Express.js
+* React/Next.js frontend
+* MySQL/PostgreSQL database
+* JWT Authentication
+* REST API
+* Production-ready environment
+
+Also include:
+
+* README.md with full deployment steps
+* PM2 setup instructions
+* Domain connection instructions
+* SSL setup guidance
+* Environment variable setup guide
+* Database import instructions for Hostinger
+
+The final output should be a fully downloadable production package that I can directly upload to my Hostinger server and make live on my own domain.
