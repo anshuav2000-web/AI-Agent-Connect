@@ -133,7 +133,7 @@ export default function AccessRequests() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/5">
-                {["Name", "Company", "Email", "Phone", "Country", "Date", "Status", "Actions"].map((h) => (
+                {["Name", "Company", "Email", "Phone", "Country", "Console", "Date", "Status", "Actions"].map((h) => (
                   <th key={h} className="px-4 py-3 text-left text-xs font-medium text-white/40 uppercase tracking-wider">{h}</th>
                 ))}
               </tr>
@@ -162,6 +162,7 @@ export default function AccessRequests() {
                     <td className="px-4 py-3 text-sm text-white/60 whitespace-nowrap">{lead.email}</td>
                     <td className="px-4 py-3 text-sm text-white/60 whitespace-nowrap">{lead.phone}</td>
                     <td className="px-4 py-3 text-sm text-white/60 whitespace-nowrap">{lead.country}</td>
+                    <td className="px-4 py-3 text-sm text-white/60 whitespace-nowrap">{(lead as any).consoleModel ?? "—"}</td>
                     <td className="px-4 py-3 text-sm text-white/40 whitespace-nowrap">
                       {new Date(lead.createdAt).toLocaleDateString()}
                     </td>

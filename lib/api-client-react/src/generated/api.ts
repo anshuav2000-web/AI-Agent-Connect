@@ -120,7 +120,7 @@ export function useHealthCheck<
 }
 
 /**
- * @summary Submit a lead
+ * @summary Submit an access request
  */
 export const getSubmitLeadUrl = () => {
   return `/api/leads`;
@@ -183,7 +183,7 @@ export type SubmitLeadMutationBody = BodyType<LeadSubmission>;
 export type SubmitLeadMutationError = ErrorType<ErrorResponse>;
 
 /**
- * @summary Submit a lead
+ * @summary Submit an access request
  */
 export const useSubmitLead = <
   TError = ErrorType<ErrorResponse>,
@@ -313,7 +313,7 @@ export const getAdminMeQueryKey = () => {
 
 export const getAdminMeQueryOptions = <
   TData = Awaited<ReturnType<typeof adminMe>>,
-  TError = ErrorType<ErrorResponse>,
+  TError = ErrorType<unknown>,
 >(options?: {
   query?: UseQueryOptions<Awaited<ReturnType<typeof adminMe>>, TError, TData>;
   request?: SecondParameter<typeof customFetch>;
@@ -336,7 +336,7 @@ export const getAdminMeQueryOptions = <
 export type AdminMeQueryResult = NonNullable<
   Awaited<ReturnType<typeof adminMe>>
 >;
-export type AdminMeQueryError = ErrorType<ErrorResponse>;
+export type AdminMeQueryError = ErrorType<unknown>;
 
 /**
  * @summary Get admin identity
@@ -344,7 +344,7 @@ export type AdminMeQueryError = ErrorType<ErrorResponse>;
 
 export function useAdminMe<
   TData = Awaited<ReturnType<typeof adminMe>>,
-  TError = ErrorType<ErrorResponse>,
+  TError = ErrorType<unknown>,
 >(options?: {
   query?: UseQueryOptions<Awaited<ReturnType<typeof adminMe>>, TError, TData>;
   request?: SecondParameter<typeof customFetch>;
@@ -434,7 +434,7 @@ export function useAdminGetStats<
 }
 
 /**
- * @summary List all leads
+ * @summary List all access requests
  */
 export const getAdminListLeadsUrl = (params?: AdminListLeadsParams) => {
   const normalizedParams = new URLSearchParams();
@@ -501,7 +501,7 @@ export type AdminListLeadsQueryResult = NonNullable<
 export type AdminListLeadsQueryError = ErrorType<unknown>;
 
 /**
- * @summary List all leads
+ * @summary List all access requests
  */
 
 export function useAdminListLeads<
@@ -528,7 +528,7 @@ export function useAdminListLeads<
 }
 
 /**
- * @summary Get a single lead
+ * @summary Get a single request
  */
 export const getAdminGetLeadUrl = (id: number) => {
   return `/api/admin/leads/${id}`;
@@ -588,7 +588,7 @@ export type AdminGetLeadQueryResult = NonNullable<
 export type AdminGetLeadQueryError = ErrorType<unknown>;
 
 /**
- * @summary Get a single lead
+ * @summary Get a single request
  */
 
 export function useAdminGetLead<
@@ -615,7 +615,7 @@ export function useAdminGetLead<
 }
 
 /**
- * @summary Update a lead
+ * @summary Update a request
  */
 export const getAdminUpdateLeadUrl = (id: number) => {
   return `/api/admin/leads/${id}`;
@@ -679,7 +679,7 @@ export type AdminUpdateLeadMutationBody = BodyType<AdminLeadUpdate>;
 export type AdminUpdateLeadMutationError = ErrorType<unknown>;
 
 /**
- * @summary Update a lead
+ * @summary Update a request
  */
 export const useAdminUpdateLead = <
   TError = ErrorType<unknown>,
@@ -702,7 +702,7 @@ export const useAdminUpdateLead = <
 };
 
 /**
- * @summary Delete a lead
+ * @summary Delete a request
  */
 export const getAdminDeleteLeadUrl = (id: number) => {
   return `/api/admin/leads/${id}`;
@@ -763,7 +763,7 @@ export type AdminDeleteLeadMutationResult = NonNullable<
 export type AdminDeleteLeadMutationError = ErrorType<unknown>;
 
 /**
- * @summary Delete a lead
+ * @summary Delete a request
  */
 export const useAdminDeleteLead = <
   TError = ErrorType<unknown>,
@@ -947,7 +947,7 @@ export const useAdminSaveWebhook = <
 };
 
 /**
- * @summary Test webhook connection
+ * @summary Test webhook
  */
 export const getAdminTestWebhookUrl = () => {
   return `/api/admin/webhook/test`;
@@ -1010,7 +1010,7 @@ export type AdminTestWebhookMutationBody = BodyType<WebhookTestRequest>;
 export type AdminTestWebhookMutationError = ErrorType<unknown>;
 
 /**
- * @summary Test webhook connection
+ * @summary Test webhook
  */
 export const useAdminTestWebhook = <
   TError = ErrorType<unknown>,

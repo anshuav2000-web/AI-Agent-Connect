@@ -20,6 +20,7 @@ router.post("/leads", async (req, res) => {
       email: parsed.data.email,
       phone: parsed.data.phone,
       country: parsed.data.country,
+      consoleModel: parsed.data.consoleModel,
       requirement: parsed.data.requirement,
       referralSource: parsed.data.referralSource,
       status: "pending",

@@ -15,6 +15,7 @@ export interface LeadSubmission {
   email: string;
   phone: string;
   country: string;
+  consoleModel?: string;
   requirement: string;
   referralSource?: string;
 }
@@ -52,6 +53,7 @@ export interface AdminLead {
   email: string;
   phone: string;
   country: string;
+  consoleModel?: string;
   requirement: string;
   referralSource?: string;
   status: string;
@@ -68,6 +70,7 @@ export interface AdminLeadUpdate {
   email?: string;
   phone?: string;
   country?: string;
+  consoleModel?: string;
   requirement?: string;
   referralSource?: string;
 }

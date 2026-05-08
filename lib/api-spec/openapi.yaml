@@ -31,7 +31,7 @@ paths:
     post:
       operationId: submitLead
       tags: [leads]
-      summary: Submit a lead
+      summary: Submit an access request
       requestBody:
         required: true
         content:
@@ -40,7 +40,7 @@ paths:
               $ref: "#/components/schemas/LeadSubmission"
       responses:
         "200":
-          description: Lead submitted successfully
+          description: Request submitted successfully
           content:
             application/json:
               schema:
@@ -88,17 +88,11 @@ paths:
       summary: Get admin identity
       responses:
         "200":
-          description: Admin is authenticated
+          description: Authenticated
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AdminMeResponse"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
   /admin/stats:
     get:
       operationId: adminGetStats
@@ -115,7 +109,7 @@ paths:
     get:
       operationId: adminListLeads
       tags: [admin]
-      summary: List all leads
+      summary: List all access requests
       parameters:
         - in: query
           name: status
@@ -127,7 +121,7 @@ paths:
             type: string
       responses:
         "200":
-          description: List of leads
+          description: List of requests
           content:
             application/json:
               schema:
@@ -138,7 +132,7 @@ paths:
     get:
       operationId: adminGetLead
       tags: [admin]
-      summary: Get a single lead
+      summary: Get a single request
       parameters:
         - in: path
           name: id
@@ -147,7 +141,7 @@ paths:
             type: integer
       responses:
         "200":
-          description: Lead detail
+          description: Request detail
           content:
             application/json:
               schema:
@@ -155,7 +149,7 @@ paths:
     patch:
       operationId: adminUpdateLead
       tags: [admin]
-      summary: Update a lead
+      summary: Update a request
       parameters:
         - in: path
           name: id
@@ -170,7 +164,7 @@ paths:
               $ref: "#/components/schemas/AdminLeadUpdate"
       responses:
         "200":
-          description: Updated lead
+          description: Updated request
           content:
             application/json:
               schema:
@@ -178,7 +172,7 @@ paths:
     delete:
       operationId: adminDeleteLead
       tags: [admin]
-      summary: Delete a lead
+      summary: Delete a request
       parameters:
         - in: path
           name: id
@@ -216,7 +210,7 @@ paths:
               $ref: "#/components/schemas/WebhookSettingsInput"
       responses:
         "200":
-          description: Saved webhook
+          description: Saved
           content:
             application/json:
               schema:
@@ -225,7 +219,7 @@ paths:
     post:
       operationId: adminTestWebhook
       tags: [admin]
-      summary: Test webhook connection
+      summary: Test webhook
       requestBody:
         required: true
         content:
@@ -260,6 +254,8 @@ components:
         phone:
           type: string
         country:
+          type: string
+        consoleModel:
           type: string
         requirement:
           type: string
@@ -323,6 +319,8 @@ components:
           type: string
         country:
           type: string
+        consoleModel:
+          type: string
         requirement:
           type: string
         referralSource:
@@ -352,6 +350,8 @@ components:
         phone:
           type: string
         country:
+          type: string
+        consoleModel:
           type: string
         requirement:
           type: string

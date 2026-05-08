@@ -10,6 +10,7 @@ export const leadsTable = pgTable("leads", {
   phone: text("phone").notNull(),
   country: text("country").notNull(),
   requirement: text("requirement").notNull(),
+  consoleModel: text("console_model"),
   referralSource: text("referral_source"),
   status: text("status").notNull().default("pending"),
   notes: text("notes"),

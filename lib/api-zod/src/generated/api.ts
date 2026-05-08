@@ -15,7 +15,7 @@ export const HealthCheckResponse = zod.object({
 });
 
 /**
- * @summary Submit a lead
+ * @summary Submit an access request
  */
 export const SubmitLeadBody = zod.object({
   fullName: zod.string(),
@@ -23,6 +23,7 @@ export const SubmitLeadBody = zod.object({
   email: zod.string().email(),
   phone: zod.string(),
   country: zod.string(),
+  consoleModel: zod.string().optional(),
   requirement: zod.string(),
   referralSource: zod.string().optional(),
 });
@@ -63,7 +64,7 @@ export const AdminGetStatsResponse = zod.object({
 });
 
 /**
- * @summary List all leads
+ * @summary List all access requests
  */
 export const AdminListLeadsQueryParams = zod.object({
   status: zod.coerce.string().optional(),
@@ -77,6 +78,7 @@ export const AdminListLeadsResponseItem = zod.object({
   email: zod.string(),
   phone: zod.string(),
   country: zod.string(),
+  consoleModel: zod.string().optional(),
   requirement: zod.string(),
   referralSource: zod.string().optional(),
   status: zod.string(),
@@ -87,7 +89,7 @@ export const AdminListLeadsResponseItem = zod.object({
 export const AdminListLeadsResponse = zod.array(AdminListLeadsResponseItem);
 
 /**
- * @summary Get a single lead
+ * @summary Get a single request
  */
 export const AdminGetLeadParams = zod.object({
   id: zod.coerce.number(),
@@ -100,6 +102,7 @@ export const AdminGetLeadResponse = zod.object({
   email: zod.string(),
   phone: zod.string(),
   country: zod.string(),
+  consoleModel: zod.string().optional(),
   requirement: zod.string(),
   referralSource: zod.string().optional(),
   status: zod.string(),
@@ -109,7 +112,7 @@ export const AdminGetLeadResponse = zod.object({
 });
 
 /**
- * @summary Update a lead
+ * @summary Update a request
  */
 export const AdminUpdateLeadParams = zod.object({
   id: zod.coerce.number(),
@@ -123,6 +126,7 @@ export const AdminUpdateLeadBody = zod.object({
   email: zod.string().optional(),
   phone: zod.string().optional(),
   country: zod.string().optional(),
+  consoleModel: zod.string().optional(),
   requirement: zod.string().optional(),
   referralSource: zod.string().optional(),
 });
@@ -134,6 +138,7 @@ export const AdminUpdateLeadResponse = zod.object({
   email: zod.string(),
   phone: zod.string(),
   country: zod.string(),
+  consoleModel: zod.string().optional(),
   requirement: zod.string(),
   referralSource: zod.string().optional(),
   status: zod.string(),
@@ -143,7 +148,7 @@ export const AdminUpdateLeadResponse = zod.object({
 });
 
 /**
- * @summary Delete a lead
+ * @summary Delete a request
  */
 export const AdminDeleteLeadParams = zod.object({
   id: zod.coerce.number(),
@@ -182,7 +187,7 @@ export const AdminSaveWebhookResponse = zod.object({
 });
 
 /**
- * @summary Test webhook connection
+ * @summary Test webhook
  */
 export const AdminTestWebhookBody = zod.object({
   url: zod.string(),
