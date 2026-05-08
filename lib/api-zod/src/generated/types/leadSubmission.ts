@@ -5,9 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
 
 export interface LeadSubmission {
   fullName: string;
@@ -17,14 +14,4 @@ export interface LeadSubmission {
   country: string;
   requirement: string;
   referralSource?: string;
-}
-
-export interface LeadSubmissionResponse {
-  success: boolean;
-  message: string;
-}
-
-export interface ErrorResponse {
-  error: string;
-  details?: string;
 }

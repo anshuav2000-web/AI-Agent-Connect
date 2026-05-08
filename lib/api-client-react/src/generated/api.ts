@@ -5,18 +5,26 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type {
+  MutationFunction,
   QueryFunction,
   QueryKey,
+  UseMutationOptions,
+  UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type {
+  ErrorResponse,
+  HealthStatus,
+  LeadSubmission,
+  LeadSubmissionResponse,
+} from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
-import type { ErrorType } from "../custom-fetch";
+import type { ErrorType, BodyType } from "../custom-fetch";
 
 type AwaitedInput<T> = PromiseLike<T> | T;
 
@@ -99,3 +107,90 @@ export function useHealthCheck<
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+/**
+ * Captures lead info and forwards to n8n webhook
+ * @summary Submit a lead
+ */
+export const getSubmitLeadUrl = () => {
+  return `/api/leads`;
+};
+
+export const submitLead = async (
+  leadSubmission: LeadSubmission,
+  options?: RequestInit,
+): Promise<LeadSubmissionResponse> => {
+  return customFetch<LeadSubmissionResponse>(getSubmitLeadUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(leadSubmission),
+  });
+};
+
+export const getSubmitLeadMutationOptions = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitLead>>,
+    TError,
+    { data: BodyType<LeadSubmission> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof submitLead>>,
+  TError,
+  { data: BodyType<LeadSubmission> },
+  TContext
+> => {
+  const mutationKey = ["submitLead"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof submitLead>>,
+    { data: BodyType<LeadSubmission> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return submitLead(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type SubmitLeadMutationResult = NonNullable<
+  Awaited<ReturnType<typeof submitLead>>
+>;
+export type SubmitLeadMutationBody = BodyType<LeadSubmission>;
+export type SubmitLeadMutationError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Submit a lead
+ */
+export const useSubmitLead = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitLead>>,
+    TError,
+    { data: BodyType<LeadSubmission> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof submitLead>>,
+  TError,
+  { data: BodyType<LeadSubmission> },
+  TContext
+> => {
+  return useMutation(getSubmitLeadMutationOptions(options));
+};

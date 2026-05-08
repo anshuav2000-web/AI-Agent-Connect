@@ -14,3 +14,22 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Captures lead info and forwards to n8n webhook
+ * @summary Submit a lead
+ */
+export const SubmitLeadBody = zod.object({
+  fullName: zod.string(),
+  companyName: zod.string().optional(),
+  email: zod.string().email(),
+  phone: zod.string(),
+  country: zod.string(),
+  requirement: zod.string(),
+  referralSource: zod.string().optional(),
+});
+
+export const SubmitLeadResponse = zod.object({
+  success: zod.boolean(),
+  message: zod.string(),
+});
