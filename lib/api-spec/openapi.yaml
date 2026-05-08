@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: leads
+    description: Lead capture operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /leads:
+    post:
+      operationId: submitLead
+      tags: [leads]
+      summary: Submit a lead
+      description: Captures lead info and forwards to n8n webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadSubmission"
+      responses:
+        "200":
+          description: Lead submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeadSubmissionResponse"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +66,46 @@ components:
           type: string
       required:
         - status
-
+    LeadSubmission:
+      type: object
+      properties:
+        fullName:
+          type: string
+        companyName:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        country:
+          type: string
+        requirement:
+          type: string
+        referralSource:
+          type: string
+      required:
+        - fullName
+        - email
+        - phone
+        - country
+        - requirement
+    LeadSubmissionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: string
+      required:
+        - error
