@@ -24,7 +24,88 @@ export interface LeadSubmissionResponse {
   message: string;
 }
 
+export interface AdminLoginRequest {
+  password: string;
+}
+
+export interface AdminLoginResponse {
+  token: string;
+}
+
+export interface AdminMeResponse {
+  authenticated: boolean;
+}
+
+export interface AdminStats {
+  totalRequests: number;
+  approved: number;
+  pending: number;
+  rejected: number;
+  todayRequests: number;
+  weekRequests: number;
+}
+
+export interface AdminLead {
+  id: number;
+  fullName: string;
+  companyName?: string;
+  email: string;
+  phone: string;
+  country: string;
+  requirement: string;
+  referralSource?: string;
+  status: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminLeadUpdate {
+  status?: string;
+  notes?: string;
+  fullName?: string;
+  companyName?: string;
+  email?: string;
+  phone?: string;
+  country?: string;
+  requirement?: string;
+  referralSource?: string;
+}
+
+export interface WebhookSettings {
+  id: number;
+  label: string;
+  url: string;
+  enabled: boolean;
+  updatedAt: string;
+}
+
+export interface WebhookSettingsInput {
+  label?: string;
+  url: string;
+  enabled?: boolean;
+}
+
+export interface WebhookTestRequest {
+  url: string;
+}
+
+export interface WebhookTestResult {
+  success: boolean;
+  status?: number;
+  message: string;
+}
+
+export interface SuccessResponse {
+  success: boolean;
+}
+
 export interface ErrorResponse {
   error: string;
   details?: string;
 }
+
+export type AdminListLeadsParams = {
+  status?: string;
+  search?: string;
+};

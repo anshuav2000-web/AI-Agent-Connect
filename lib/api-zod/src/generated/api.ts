@@ -8,7 +8,6 @@
 import * as zod from "zod";
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
@@ -16,7 +15,6 @@ export const HealthCheckResponse = zod.object({
 });
 
 /**
- * Captures lead info and forwards to n8n webhook
  * @summary Submit a lead
  */
 export const SubmitLeadBody = zod.object({
@@ -31,5 +29,167 @@ export const SubmitLeadBody = zod.object({
 
 export const SubmitLeadResponse = zod.object({
   success: zod.boolean(),
+  message: zod.string(),
+});
+
+/**
+ * @summary Admin login
+ */
+export const AdminLoginBody = zod.object({
+  password: zod.string(),
+});
+
+export const AdminLoginResponse = zod.object({
+  token: zod.string(),
+});
+
+/**
+ * @summary Get admin identity
+ */
+export const AdminMeResponse = zod.object({
+  authenticated: zod.boolean(),
+});
+
+/**
+ * @summary Get dashboard stats
+ */
+export const AdminGetStatsResponse = zod.object({
+  totalRequests: zod.number(),
+  approved: zod.number(),
+  pending: zod.number(),
+  rejected: zod.number(),
+  todayRequests: zod.number(),
+  weekRequests: zod.number(),
+});
+
+/**
+ * @summary List all leads
+ */
+export const AdminListLeadsQueryParams = zod.object({
+  status: zod.coerce.string().optional(),
+  search: zod.coerce.string().optional(),
+});
+
+export const AdminListLeadsResponseItem = zod.object({
+  id: zod.number(),
+  fullName: zod.string(),
+  companyName: zod.string().optional(),
+  email: zod.string(),
+  phone: zod.string(),
+  country: zod.string(),
+  requirement: zod.string(),
+  referralSource: zod.string().optional(),
+  status: zod.string(),
+  notes: zod.string().optional(),
+  createdAt: zod.string(),
+  updatedAt: zod.string(),
+});
+export const AdminListLeadsResponse = zod.array(AdminListLeadsResponseItem);
+
+/**
+ * @summary Get a single lead
+ */
+export const AdminGetLeadParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminGetLeadResponse = zod.object({
+  id: zod.number(),
+  fullName: zod.string(),
+  companyName: zod.string().optional(),
+  email: zod.string(),
+  phone: zod.string(),
+  country: zod.string(),
+  requirement: zod.string(),
+  referralSource: zod.string().optional(),
+  status: zod.string(),
+  notes: zod.string().optional(),
+  createdAt: zod.string(),
+  updatedAt: zod.string(),
+});
+
+/**
+ * @summary Update a lead
+ */
+export const AdminUpdateLeadParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminUpdateLeadBody = zod.object({
+  status: zod.string().optional(),
+  notes: zod.string().optional(),
+  fullName: zod.string().optional(),
+  companyName: zod.string().optional(),
+  email: zod.string().optional(),
+  phone: zod.string().optional(),
+  country: zod.string().optional(),
+  requirement: zod.string().optional(),
+  referralSource: zod.string().optional(),
+});
+
+export const AdminUpdateLeadResponse = zod.object({
+  id: zod.number(),
+  fullName: zod.string(),
+  companyName: zod.string().optional(),
+  email: zod.string(),
+  phone: zod.string(),
+  country: zod.string(),
+  requirement: zod.string(),
+  referralSource: zod.string().optional(),
+  status: zod.string(),
+  notes: zod.string().optional(),
+  createdAt: zod.string(),
+  updatedAt: zod.string(),
+});
+
+/**
+ * @summary Delete a lead
+ */
+export const AdminDeleteLeadParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminDeleteLeadResponse = zod.object({
+  success: zod.boolean(),
+});
+
+/**
+ * @summary Get webhook settings
+ */
+export const AdminGetWebhookResponse = zod.object({
+  id: zod.number(),
+  label: zod.string(),
+  url: zod.string(),
+  enabled: zod.boolean(),
+  updatedAt: zod.string(),
+});
+
+/**
+ * @summary Save webhook settings
+ */
+export const AdminSaveWebhookBody = zod.object({
+  label: zod.string().optional(),
+  url: zod.string(),
+  enabled: zod.boolean().optional(),
+});
+
+export const AdminSaveWebhookResponse = zod.object({
+  id: zod.number(),
+  label: zod.string(),
+  url: zod.string(),
+  enabled: zod.boolean(),
+  updatedAt: zod.string(),
+});
+
+/**
+ * @summary Test webhook connection
+ */
+export const AdminTestWebhookBody = zod.object({
+  url: zod.string(),
+});
+
+export const AdminTestWebhookResponse = zod.object({
+  success: zod.boolean(),
+  status: zod.number().optional(),
   message: zod.string(),
 });

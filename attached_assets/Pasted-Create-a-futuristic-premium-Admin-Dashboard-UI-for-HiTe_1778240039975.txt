@@ -1,0 +1,196 @@
+Create a futuristic premium Admin Dashboard UI for “HiTech AI Agent” — an AI-powered DiGiCo WhatsApp support platform running on n8n automation.
+
+The admin dashboard must be fully editable and controllable by the admin user.
+
+THEME & STYLE:
+
+* Dark futuristic AI theme
+* Inspired by DiGiCo consoles, audio engineering systems, AI dashboards, and live sound environments
+* Cyberpunk + broadcast + concert production style
+* Glassmorphism UI
+* Neon green + electric blue glow
+* Animated waveform backgrounds
+* Floating audio spectrum animations
+* Professional SaaS admin panel design
+* Apple-level premium dashboard quality
+* Modern responsive layout
+
+COLOR PALETTE:
+
+* Matte black background
+* Neon green highlights
+* Cyan glow effects
+* Electric blue accents
+* Metallic dark gray panels
+
+DASHBOARD STRUCTURE:
+Create a complete admin panel with:
+
+1. SIDEBAR MENU
+
+* Dashboard
+* Access Requests
+* WhatsApp AI Support
+* n8n Webhook Settings
+* User Management
+* Console Models
+* AI Knowledge Base
+* Analytics
+* Notifications
+* Settings
+* Logout
+
+2. TOP NAVBAR
+
+* Admin profile
+* Notifications bell
+* Search bar
+* Live AI status
+* System health indicator
+* Current active webhook status
+
+3. MAIN DASHBOARD OVERVIEW
+    Include premium animated statistic cards:
+
+* Total Access Requests
+* Approved Users
+* Pending Requests
+* Rejected Requests
+* Total WhatsApp Conversations
+* AI Resolution Rate
+* Active Users
+* Total Webhook Calls
+* Support Tickets
+* Live AI Sessions
+
+4. ACCESS REQUEST MANAGEMENT
+    Admin can:
+
+* View all submitted forms
+* Approve requests
+* Reject requests
+* Delete requests
+* Edit submitted form data
+* Search users
+* Filter by status
+* Export data
+* View request details in popup modal
+
+Show modern responsive data table with:
+
+* Name
+* Email
+* Company
+* Phone
+* Console Model
+* Date
+* Status
+* Actions
+
+5. N8N WEBHOOK SETTINGS PAGE
+    Admin must be able to:
+
+* Change webhook URL anytime
+* Enable/disable webhook
+* Test webhook connection
+* View webhook logs
+* Save webhook settings
+* Multiple webhook support
+* Backup webhook URLs
+* Real-time webhook status
+
+Include:
+
+* Input field for webhook URL
+* Save button
+* Test connection button
+* Success/failure animations
+
+6. FORM BUILDER SYSTEM
+    Admin can:
+
+* Add new form fields
+* Edit existing form fields
+* Delete fields
+* Make fields required
+* Change placeholder text
+* Reorder fields
+* Enable/disable fields
+* Create custom forms dynamically
+
+7. WHATSAPP AI MANAGEMENT
+    Admin can:
+
+* Enable/disable WhatsApp AI
+* Change AI prompt
+* Manage auto replies
+* View live conversations
+* Escalate chats
+* View AI analytics
+* Upload AI training documents
+
+8. ANALYTICS PAGE
+    Create beautiful charts for:
+
+* Access requests growth
+* Daily AI conversations
+* Webhook activity
+* User activity
+* Support response time
+* AI performance metrics
+
+9. SETTINGS PAGE
+    Admin can:
+
+* Change website logo
+* Edit landing page content
+* Update contact details
+* Change colors/theme
+* Manage API keys
+* Configure SMTP/email
+* Enable maintenance mode
+
+10. SECURITY FEATURES
+    Include:
+
+* Admin login authentication
+* JWT/Auth system
+* Role-based access
+* Activity logs
+* Session management
+* Two-factor authentication UI
+
+SPECIAL UI ELEMENTS:
+
+* Animated audio meters
+* Live waveform visualizers
+* AI neural network background
+* Holographic widgets
+* Smooth hover animations
+* Premium transitions
+* Glass cards
+* Real-time updating counters
+* Audio console inspired controls
+
+TECH STACK:
+
+* React / Next.js
+* Tailwind CSS
+* Framer Motion animations
+* Supabase/Firebase backend
+* Node.js API
+* n8n webhook integration
+* Responsive mobile layout
+
+IMPORTANT FEATURES:
+
+* Admin can fully control everything
+* Admin can change webhook links anytime
+* Admin can edit/delete access form submissions
+* Real-time dashboard updates
+* Live notification system
+* Fully responsive
+* SaaS-level professional UI
+
+OUTPUT:
+Generate a complete modern premium admin dashboard UI with all pages, futuristic AI/audio visuals, editable webhook settings, access request management system, and full admin controls.

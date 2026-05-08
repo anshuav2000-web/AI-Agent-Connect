@@ -1,0 +1,129 @@
+
+ Its my ai agent. For
+HItech audio and image 
+ We are not a ai agent provider 
+ We are lounching our Hitech ai agent for a DiGiCo support 
+
+Create a premium futuristic landing page UI for “HiTech AI Agent” — an AI-powered WhatsApp support assistant specially designed for DiGiCo audio consoles and live sound engineers.
+
+STYLE & THEME:
+
+* Dark futuristic UI
+* Inspired by professional audio consoles, live sound environments, DiGiCo workflows, and AI systems
+* Premium cyberpunk + broadcast + concert production vibe
+* High-end SaaS website design
+* Glassmorphism + neon glow effects
+* AI holographic elements
+* Animated audio waveforms
+* Interactive equalizer animations
+* Floating sound spectrum bars
+* Digital control panel inspired sections
+* Professional AV industry aesthetic
+
+COLOR PALETTE:
+
+* Matte Black Background
+* Neon Green
+* Electric Blue
+* Cyan Glow
+* Subtle Purple Accent
+* Metallic dark gray panels
+
+HERO SECTION:
+
+* Big bold headline:
+    “AI Powered DiGiCo Support on WhatsApp”
+* Subtitle:
+    “Instant troubleshooting, console guidance, workflow assistance, and smart audio support powered by AI automation.”
+* CTA Buttons:
+    * “Get Access”
+    * “Start WhatsApp Support”
+* Floating WhatsApp support widget
+* Animated AI assistant interface
+* 3D audio console inspired graphics
+* Background animated waveform particles
+
+FEATURES SECTION:
+Include modern animated feature cards:
+
+1. AI Troubleshooting Assistant
+2. WhatsApp Integrated Support
+3. DiGiCo Workflow Guidance
+4. Real-time Console Help
+5. Smart Ticket Automation
+6. Knowledge Base Search
+7. Audio Networking Support
+8. Multi-language AI Assistance
+
+SPECIAL UI ELEMENTS:
+
+* Audio meter animations
+* Live waveform visualizers
+* Digital mixer inspired cards
+* AI neural network backgrounds
+* Floating glass panels
+* Holographic support dashboard
+* Animated sound frequency lines
+* Dynamic light reflections
+* Futuristic dashboard widgets
+
+WHATSAPP SECTION:
+Create a realistic WhatsApp support preview:
+
+* User asks audio issue
+* AI responds professionally
+* Show instant support automation
+* Include typing animation
+* Green WhatsApp themed UI integrated into futuristic design
+
+ACCESS FORM SECTION:
+Create a premium glassmorphism form with:
+
+* Name
+* Company
+* Email
+* Phone
+* Console Model
+* Requirement
+* Submit button with neon glow
+
+IMPORTANT:
+
+* Form must connect to n8n webhook
+* Add JavaScript fetch POST request
+* Placeholder:
+    YOUR_N8N_WEBHOOK_URL
+
+ADDITIONAL SECTIONS:
+
+* Testimonials from audio engineers
+* Supported console models
+* AI automation workflow preview
+* Pricing cards
+* FAQ section
+* Footer with social icons
+
+DESIGN QUALITY:
+
+* Apple-level premium UI
+* Awwwards-style modern website
+* Smooth animations
+* Fully responsive
+* High-end SaaS feel
+* Cinematic gradients
+* Professional typography
+* Modern spacing system
+
+TECH:
+
+* HTML
+* Tailwind CSS or modern CSS
+* JavaScript
+* Responsive design
+* Smooth scrolling
+* Hover animations
+* Glow effects
+* Animated transitions
+
+OUTPUT:
+Generate a complete single-page modern landing page with all sections, premium animations, futuristic audio visuals, WhatsApp AI support UI, and n8n webhook integration.

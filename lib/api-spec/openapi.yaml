@@ -12,13 +12,14 @@ tags:
     description: Health operations
   - name: leads
     description: Lead capture operations
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -31,7 +32,6 @@ paths:
       operationId: submitLead
       tags: [leads]
       summary: Submit a lead
-      description: Captures lead info and forwards to n8n webhook
       requestBody:
         required: true
         content:
@@ -57,6 +57,188 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLoginResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /admin/me:
+    get:
+      operationId: adminMe
+      tags: [admin]
+      summary: Get admin identity
+      responses:
+        "200":
+          description: Admin is authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminMeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /admin/stats:
+    get:
+      operationId: adminGetStats
+      tags: [admin]
+      summary: Get dashboard stats
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+  /admin/leads:
+    get:
+      operationId: adminListLeads
+      tags: [admin]
+      summary: List all leads
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of leads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminLead"
+  /admin/leads/{id}:
+    get:
+      operationId: adminGetLead
+      tags: [admin]
+      summary: Get a single lead
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lead detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLead"
+    patch:
+      operationId: adminUpdateLead
+      tags: [admin]
+      summary: Update a lead
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLeadUpdate"
+      responses:
+        "200":
+          description: Updated lead
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLead"
+    delete:
+      operationId: adminDeleteLead
+      tags: [admin]
+      summary: Delete a lead
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+  /admin/webhook:
+    get:
+      operationId: adminGetWebhook
+      tags: [admin]
+      summary: Get webhook settings
+      responses:
+        "200":
+          description: Webhook settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookSettings"
+    put:
+      operationId: adminSaveWebhook
+      tags: [admin]
+      summary: Save webhook settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookSettingsInput"
+      responses:
+        "200":
+          description: Saved webhook
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookSettings"
+  /admin/webhook/test:
+    post:
+      operationId: adminTestWebhook
+      tags: [admin]
+      summary: Test webhook connection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookTestRequest"
+      responses:
+        "200":
+          description: Test result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookTestResult"
 components:
   schemas:
     HealthStatus:
@@ -64,8 +246,7 @@ components:
       properties:
         status:
           type: string
-      required:
-        - status
+      required: [status]
     LeadSubmission:
       type: object
       properties:
@@ -84,12 +265,7 @@ components:
           type: string
         referralSource:
           type: string
-      required:
-        - fullName
-        - email
-        - phone
-        - country
-        - requirement
+      required: [fullName, email, phone, country, requirement]
     LeadSubmissionResponse:
       type: object
       properties:
@@ -97,9 +273,136 @@ components:
           type: boolean
         message:
           type: string
-      required:
-        - success
-        - message
+      required: [success, message]
+    AdminLoginRequest:
+      type: object
+      properties:
+        password:
+          type: string
+      required: [password]
+    AdminLoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+      required: [token]
+    AdminMeResponse:
+      type: object
+      properties:
+        authenticated:
+          type: boolean
+      required: [authenticated]
+    AdminStats:
+      type: object
+      properties:
+        totalRequests:
+          type: integer
+        approved:
+          type: integer
+        pending:
+          type: integer
+        rejected:
+          type: integer
+        todayRequests:
+          type: integer
+        weekRequests:
+          type: integer
+      required: [totalRequests, approved, pending, rejected, todayRequests, weekRequests]
+    AdminLead:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        companyName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        country:
+          type: string
+        requirement:
+          type: string
+        referralSource:
+          type: string
+        status:
+          type: string
+        notes:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required: [id, fullName, email, phone, country, requirement, status, createdAt, updatedAt]
+    AdminLeadUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        notes:
+          type: string
+        fullName:
+          type: string
+        companyName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        country:
+          type: string
+        requirement:
+          type: string
+        referralSource:
+          type: string
+    WebhookSettings:
+      type: object
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        url:
+          type: string
+        enabled:
+          type: boolean
+        updatedAt:
+          type: string
+      required: [id, label, url, enabled, updatedAt]
+    WebhookSettingsInput:
+      type: object
+      properties:
+        label:
+          type: string
+        url:
+          type: string
+        enabled:
+          type: boolean
+      required: [url]
+    WebhookTestRequest:
+      type: object
+      properties:
+        url:
+          type: string
+      required: [url]
+    WebhookTestResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          type: integer
+        message:
+          type: string
+      required: [success, message]
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required: [success]
     ErrorResponse:
       type: object
       properties:
@@ -107,5 +410,4 @@ components:
           type: string
         details:
           type: string
-      required:
-        - error
+      required: [error]
