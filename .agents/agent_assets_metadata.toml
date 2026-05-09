@@ -6,3 +6,9 @@ id = "E2KxoEFRLSvn-h4Crwkh3"
 uri = "file://exports/hitech-ai-hostinger.zip"
 type = "unspecified"
 title = "HiTech AI — Hostinger Production Package"
+
+[[outputs]]
+id = "Yq68NJ-mVFchDIpj-wCDq"
+uri = "file://exports/hitech-ai-hostinger-v2.zip"
+type = "unspecified"
+title = "HiTech AI — Fixed Hostinger Package (GitHub Deploy Ready)"
